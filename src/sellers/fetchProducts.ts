@@ -17,5 +17,8 @@ export async function fetchProducts(
     return resolveProductsFromCheeseStore(locale);
   }
 
-  throw new Error(`Unsupported "${marketConfig.seller}"`);
+  assertNever(marketConfig);
+  return [];
 }
+
+function assertNever(_value: never) {}

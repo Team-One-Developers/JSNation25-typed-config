@@ -1,4 +1,6 @@
-export const config: Config = {
+import { ConfigShape } from "./ConfigShape";
+
+export const config = {
   markets: {
     de: {
       locales: ["de-DE"],
@@ -9,7 +11,7 @@ export const config: Config = {
       seller: "Cheese Store",
     },
   },
-};
+} as const satisfies ConfigShape;
 
 export const getMarketConfig = (marketKey: MarketKey) =>
   config.markets[marketKey];
@@ -21,13 +23,7 @@ export const isMarketKey = (marketKey: unknown): marketKey is MarketKey => {
   );
 };
 
-export type Config = {
-  markets: Record<MarketKey, MarketConfig>;
-};
-
-export type MarketKey = "de" | "ch";
-
-export type MarketConfig = {
-  locales: string[];
-  seller: string;
-};
+export type Config = typeof config;
+export type MarketsConfig = Config["markets"];
+export type MarketConfig = MarketsConfig[MarketKey];
+export type MarketKey = keyof MarketsConfig;
