@@ -2,6 +2,7 @@ import { describe, test, jest, expect, beforeEach } from "@jest/globals";
 import { productsRoute } from "./productsRoute";
 import { Request, Response } from "express";
 import { fetchProducts } from "../sellers/fetchProducts";
+import { isMarketKey } from "../config";
 
 jest.unmock("./productsRoute");
 
@@ -21,6 +22,7 @@ describe("productsRoute", () => {
   });
 
   test("returns products for valid query parameters", async () => {
+    jest.mocked(isMarketKey).mockReturnValue(true);
     jest
       .mocked(fetchProducts)
       .mockResolvedValue([{ name: "Yummy Potato", price: 1 }]);
@@ -33,11 +35,9 @@ describe("productsRoute", () => {
   });
 
   test("returns 400 for missing query parameters", async () => {
-    const invalidMockRequest = {
-      query: { marketKey: "xx" }, // Missing locale
-    } as unknown as Request;
+    jest.mocked(isMarketKey).mockReturnValue(false);
 
-    await productsRoute(invalidMockRequest, mockResponse);
+    await productsRoute(validMockRequest, mockResponse);
 
     expect(mockResponse.status).toHaveBeenCalledWith(400);
     expect(mockResponse.send).toHaveBeenCalledWith("Invalid query parameters");

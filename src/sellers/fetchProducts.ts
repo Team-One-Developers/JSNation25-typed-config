@@ -1,13 +1,13 @@
-import { resolveMarketConfig } from "../resolveMarketConfig";
+import { getMarketConfig, MarketKey } from "../config";
 import { resolveProductsFromCheeseStore } from "./CheeseStore/resolveProductsFromCheeseStore";
 import { resolveProductsFromPotatoStore } from "./PotatoStore/resolveProductsFromPotatoStore";
 import { Product } from "./Product";
 
 export async function fetchProducts(
-  marketKey: string,
+  marketKey: MarketKey,
   locale: string
 ): Promise<Product[]> {
-  const marketConfig = await resolveMarketConfig(marketKey);
+  const marketConfig = getMarketConfig(marketKey);
 
   if (marketConfig.seller === "Potato Store") {
     return resolveProductsFromPotatoStore(locale);

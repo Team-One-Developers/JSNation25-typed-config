@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { fetchProducts } from "../sellers/fetchProducts";
+import { isMarketKey } from "../config";
 
 export async function productsRoute(req: Request, res: Response) {
   const marketKey = req.query.marketKey;
   const locale = req.query.locale;
 
-  if (typeof marketKey !== "string" || typeof locale !== "string") {
+  if (!isMarketKey(marketKey) || typeof locale !== "string") {
     res.status(400).send("Invalid query parameters");
     return;
   }
