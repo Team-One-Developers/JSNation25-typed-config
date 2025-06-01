@@ -5,12 +5,6 @@ import { fetchProductsFromPotatoStore } from "./fetchProductsFromPotatoStore";
 jest.unmock("./resolveProductsFromPotatoStore");
 
 describe("fetchProductsFromPotatoStore", () => {
-  test("throws an error for invalid locale", () => {
-    expect(() => resolveProductsFromPotatoStore("invalid-locale")).toThrow(
-      "Invalid locale"
-    );
-  });
-
   test.each([{ locale: "de-DE", expectedTag: "ger" }] as const)(
     'maps "$locale" to "$expectedTag"',
     async ({ locale, expectedTag }) => {

@@ -4,16 +4,19 @@ import {
 } from "./fetchProductsFromPotatoStore";
 import { mapPotatoStoreProducts } from "./mapPotatoStoreProducts";
 
-export const resolveProductsFromPotatoStore = (locale: string) => {
-  const languageTag = potatoStoreLangugageTagMap[locale];
+type LocaleOfPotatoStoreMarket = "de-DE";
 
-  if (!languageTag) {
-    throw new Error("Invalid locale");
-  }
+export const resolveProductsFromPotatoStore = (
+  locale: LocaleOfPotatoStoreMarket
+) => {
+  const languageTag = potatoStoreLangugageTagMap[locale];
 
   return fetchProductsFromPotatoStore(languageTag).then(mapPotatoStoreProducts);
 };
 
-const potatoStoreLangugageTagMap: Record<string, PotatoStoreLanguageTag> = {
+const potatoStoreLangugageTagMap: Record<
+  LocaleOfPotatoStoreMarket,
+  PotatoStoreLanguageTag
+> = {
   "de-DE": "ger",
 };

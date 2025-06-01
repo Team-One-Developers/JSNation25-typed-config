@@ -6,12 +6,6 @@ import { mapCheeseStoreProducts } from "./mapCheeseStoreProducts";
 jest.unmock("./resolveProductsFromCheeseStore");
 
 describe("fetchProductsFromCheeseStore", () => {
-  test("throws an error for invalid locale", () => {
-    expect(() => resolveProductsFromCheeseStore("invalid-locale")).toThrow(
-      "Invalid locale"
-    );
-  });
-
   test.each([
     { locale: "de-CH", expectedTag: "ger" },
     { locale: "en-CH", expectedTag: "eng" },

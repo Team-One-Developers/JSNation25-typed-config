@@ -4,17 +4,20 @@ import {
 } from "./fetchProductsFromCheeseStore";
 import { mapCheeseStoreProducts } from "./mapCheeseStoreProducts";
 
-export const resolveProductsFromCheeseStore = (locale: string) => {
-  const languageTag = cheeseStoreLangugageTagMap[locale];
+type LocaleOfCheeseStoreMarket = "de-CH" | "en-CH";
 
-  if (!languageTag) {
-    throw new Error("Invalid locale");
-  }
+export const resolveProductsFromCheeseStore = (
+  locale: LocaleOfCheeseStoreMarket
+) => {
+  const languageTag = cheeseStoreLangugageTagMap[locale];
 
   return fetchProductsFromCheeseStore(languageTag).then(mapCheeseStoreProducts);
 };
 
-const cheeseStoreLangugageTagMap: Record<string, CheeseStoreLanguageTag> = {
+const cheeseStoreLangugageTagMap: Record<
+  LocaleOfCheeseStoreMarket,
+  CheeseStoreLanguageTag
+> = {
   "de-CH": "ger",
   "en-CH": "eng",
 };
