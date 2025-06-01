@@ -34,15 +34,6 @@ describe("fetchProducts", () => {
     expect(resolveProductsFromCheeseStore).toHaveBeenCalledWith("xx-XX");
     expect(result).toEqual([{ name: "Yummy Potato", price: 1 }]);
   });
-
-  test("throws if market config is not found", async () => {
-    jest.mocked(resolveMarketConfig).mockResolvedValue(null);
-
-    await expect(fetchProducts("xx", "xx-XX")).rejects.toThrow(
-      'Market with key "xx" not found'
-    );
-  });
-
   test("throws if seller is unsupported", async () => {
     jest
       .mocked(resolveMarketConfig)

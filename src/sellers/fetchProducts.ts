@@ -9,10 +9,6 @@ export async function fetchProducts(
 ): Promise<Product[]> {
   const marketConfig = await resolveMarketConfig(marketKey);
 
-  if (!marketConfig) {
-    throw new Error(`Market with key "${marketKey}" not found`);
-  }
-
   if (marketConfig.seller === "Potato Store") {
     return resolveProductsFromPotatoStore(locale);
   }
