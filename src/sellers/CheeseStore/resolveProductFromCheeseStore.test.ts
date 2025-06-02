@@ -12,7 +12,10 @@ describe("fetchProductsFromCheeseStore", () => {
     );
   });
 
-  test.each([{ locale: "de-CH", expectedTag: "ger" }] as const)(
+  test.each([
+    { locale: "de-CH", expectedTag: "ger" },
+    { locale: "en-CH", expectedTag: "eng" },
+  ] as const)(
     'maps "$locale" to "$expectedTag"',
     async ({ locale, expectedTag }) => {
       jest

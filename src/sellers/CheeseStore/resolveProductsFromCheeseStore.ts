@@ -16,4 +16,5 @@ export const resolveProductsFromCheeseStore = (locale: string) => {
 
 const cheeseStoreLangugageTagMap: Record<string, CheeseStoreLanguageTag> = {
   "de-CH": "ger",
+  "en-CH": "eng",
 };
