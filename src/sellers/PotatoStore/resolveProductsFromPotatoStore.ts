@@ -1,10 +1,11 @@
+import { LocaleOfSeller } from "../../config";
 import {
   fetchProductsFromPotatoStore,
   PotatoStoreLanguageTag,
 } from "./fetchProductsFromPotatoStore";
 import { mapPotatoStoreProducts } from "./mapPotatoStoreProducts";
 
-type LocaleOfPotatoStoreMarket = "de-DE";
+type LocaleOfPotatoStoreMarket = LocaleOfSeller<"Potato Store">;
 
 export const resolveProductsFromPotatoStore = (
   locale: LocaleOfPotatoStoreMarket

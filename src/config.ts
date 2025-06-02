@@ -24,6 +24,15 @@ export const isMarketKey = (marketKey: unknown): marketKey is MarketKey => {
 };
 
 export type Config = typeof config;
+
 export type MarketsConfig = Config["markets"];
 export type MarketConfig = MarketsConfig[MarketKey];
 export type MarketKey = keyof MarketsConfig;
+export type Seller = MarketConfig["seller"];
+
+export type MarketConfigOfSeller<S extends Seller> = MarketConfig & {
+  seller: S;
+};
+
+export type LocaleOfSeller<S extends Seller> =
+  MarketConfigOfSeller<S>["locales"][number];

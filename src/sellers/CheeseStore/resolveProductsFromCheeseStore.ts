@@ -1,10 +1,11 @@
+import { LocaleOfSeller } from "../../config";
 import {
   CheeseStoreLanguageTag,
   fetchProductsFromCheeseStore,
 } from "./fetchProductsFromCheeseStore";
 import { mapCheeseStoreProducts } from "./mapCheeseStoreProducts";
 
-type LocaleOfCheeseStoreMarket = "de-CH" | "en-CH";
+type LocaleOfCheeseStoreMarket = LocaleOfSeller<"Cheese Store">;
 
 export const resolveProductsFromCheeseStore = (
   locale: LocaleOfCheeseStoreMarket
