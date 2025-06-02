@@ -12,7 +12,7 @@ export async function productsRoute(req: Request, res: Response) {
   }
 
   try {
-    const products = await fetchProducts(marketKey, locale);
+    const products = await fetchProducts({ marketKey, locale });
 
     res.json(products);
   } catch (_err) {
