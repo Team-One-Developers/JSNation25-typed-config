@@ -2,7 +2,7 @@ import { describe, test, jest, expect, beforeEach } from "@jest/globals";
 import { productsRoute } from "./productsRoute";
 import { Request, Response } from "express";
 import { fetchProducts } from "../sellers/fetchProducts";
-import { isMarketKey } from "../config";
+import { assertMarketLocale } from "../MarketLocale";
 
 jest.unmock("./productsRoute");
 
@@ -22,7 +22,6 @@ describe("productsRoute", () => {
   });
 
   test("returns products for valid query parameters", async () => {
-    jest.mocked(isMarketKey).mockReturnValue(true);
     jest
       .mocked(fetchProducts)
       .mockResolvedValue([{ name: "Yummy Potato", price: 1 }]);
@@ -34,8 +33,10 @@ describe("productsRoute", () => {
     ]);
   });
 
-  test("returns 400 for missing query parameters", async () => {
-    jest.mocked(isMarketKey).mockReturnValue(false);
+  test("returns 400 for invalid query parameters", async () => {
+    jest.mocked(assertMarketLocale).mockImplementation(() => {
+      throw new Error("Mocked error");
+    });
 
     await productsRoute(validMockRequest, mockResponse);
 
