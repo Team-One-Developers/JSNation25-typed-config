@@ -1,28 +1,21 @@
-import { getMarketConfig, LocaleOfMarket, MarketKey } from "../config";
+import { isMarketLocaleForSeller, MarketLocale } from "../MarketLocale";
 import { resolveProductsFromCheeseStore } from "./CheeseStore/resolveProductsFromCheeseStore";
 import { resolveProductsFromPotatoStore } from "./PotatoStore/resolveProductsFromPotatoStore";
 import { Product } from "./Product";
 
-export async function fetchProducts<M extends MarketKey>(
-  marketKey: M,
-  locale: LocaleOfMarket<M>
+export async function fetchProducts(
+  marketLocale: MarketLocale
 ): Promise<Product[]> {
-  const marketConfig = getMarketConfig(marketKey);
-
-  if (marketConfig.seller === "Potato Store") {
-    return resolveProductsFromPotatoStore(locale);
+  if (isMarketLocaleForSeller(marketLocale, "Potato Store")) {
+    return resolveProductsFromPotatoStore(marketLocale.locale);
   }
 
-  if (marketConfig.seller === "Cheese Store") {
-    return resolveProductsFromCheeseStore(locale);
+  if (isMarketLocaleForSeller(marketLocale, "Cheese Store")) {
+    return resolveProductsFromCheeseStore(marketLocale.locale);
   }
 
-  assertNever(marketConfig);
+  assertNever(marketLocale);
   return [];
-}
-
-function demo() {
-  fetchProducts<"de" | "ch">("ch", "de-DE"); // no issue in ts!
 }
 
 function assertNever(_value: never) {}

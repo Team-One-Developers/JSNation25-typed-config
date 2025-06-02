@@ -34,6 +34,10 @@ export type MarketConfigOfSeller<S extends Seller> = MarketConfig & {
   seller: S;
 };
 
+export type MarketKeyOfSeller<S extends Seller> = {
+  [M in MarketKey]: MarketsConfig[M]["seller"] extends S ? M : never;
+}[MarketKey];
+
 export type Locale = MarketsConfig[MarketKey]["locales"][number];
 export type LocaleOfMarket<M extends MarketKey> =
   MarketsConfig[M]["locales"][number];
